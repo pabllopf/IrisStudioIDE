@@ -1,0 +1,155 @@
+/*
+ * This is an adjustment of the original modena.css for a consistent dark theme.
+ * Original modena.css here: https://gist.github.com/maxd/63691840fc372f22f470.
+ */
+
+/* Redefine base colors */
+.root {
+    -fx-base: rgb(50, 50, 50);
+    -fx-background: -fx-base;
+
+    /* make controls (buttons, thumb, etc.) slightly lighter */
+    -fx-color: derive(-fx-base, 10%);
+
+    /* text fields and table rows background */
+    -fx-control-inner-background: -fx-base;
+    /* version of -fx-control-inner-background for alternative rows */
+    -fx-control-inner-background-alt: derive(-fx-control-inner-background, 2.5%);
+
+    /* text colors depending on background's brightness */
+    -fx-light-text-color: rgb(220, 220, 220);
+    -fx-mid-text-color: rgb(100, 100, 100);
+    -fx-dark-text-color: rgb(20, 20, 20);
+
+    /* A bright blue for highlighting/accenting objects.  For example: selected
+     * text; selected items in menus, lists, trees, and tables; progress bars */
+    -fx-accent: rgba(0, 100, 200, 40);
+
+    /* color of non-focused yet selected elements */
+    -fx-selection-bar-non-focused: rgb(50, 50, 50);
+}
+
+/* Fix derived prompt color for text fields */
+.text-input {
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, +50%);
+}
+
+/* Keep prompt invisible when focused (above color fix overrides it) */
+.text-input:focused {
+    -fx-prompt-text-fill: transparent;
+}
+
+/* Fix scroll bar buttons arrows colors */
+.scroll-bar > .increment-button > .increment-arrow,
+.scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color: -fx-mark-highlight-color, rgb(220, 220, 220);
+}
+
+.scroll-bar > .increment-button:hover > .increment-arrow,
+.scroll-bar > .decrement-button:hover > .decrement-arrow {
+    -fx-background-color: -fx-mark-highlight-color, rgb(240, 240, 240);
+}
+
+.scroll-bar > .increment-button:pressed > .increment-arrow,
+.scroll-bar > .decrement-button:pressed > .decrement-arrow {
+    -fx-background-color: -fx-mark-highlight-color, rgb(255, 255, 255);
+}
+
+.dialog-pane {
+  -fx-background-color: rgb(50, 50, 50);
+ }
+
+#linenumbers {
+	-fx-background-color: rgb(40, 40, 40);
+	-fx-foreground-color: whitesmoke;
+}
+
+.lineno {
+	-fx-background-color: rgb(40, 40, 40);
+	-fx-foreground-color: whitesmoke;
+}
+
+#codearea .text {
+    -fx-fill: whitesmoke;
+}
+
+#codearea .caret {
+	-fx-stroke: white;
+}
+
+#codearea {
+	-fx-background-color: rgb(50, 50, 50);
+}
+
+.virtualized-scroll-pane {
+    -fx-padding: 0;
+    -fx-cursor: default;
+    -fx-background-color: linear-gradient(to bottom, derive(-fx-text-box-border, -10%), -fx-text-box-border),
+        derive(-fx-base,-1%);
+}
+.virtualized-scroll-pane {
+    -fx-background-color: null;
+}
+.virtualized-scroll-pane > .scroll-bar:horizontal {
+    -fx-background-radius: 0 0 2 2;
+}
+.virtualized-scroll-pane > .scroll-bar:vertical {
+    -fx-background-radius: 0 2 2 0;
+}
+.virtualized-scroll-pane > .corner {
+    -fx-background-radius: 0 0 2 0;
+}
+.virtualized-scroll-pane .code-area {
+    /*the is 1px less top and bottom than TextInput because of scrollpane border */
+    -fx-padding: 0.25em 0.583em 0.25em 0.583em; /* 3 7 3 7 */
+    -fx-cursor: text;
+    -fx-background-color:
+        linear-gradient(from 0px 0px to 0px 4px, derive(-fx-control-inner-background, -8%), -fx-control-inner-background);
+    -fx-background-radius: 2;
+}
+.virtualized-scroll-pane:focused .code-area {
+    -fx-background-color:
+        -fx-control-inner-background,
+        -fx-faint-focus-color,
+        linear-gradient(from 0px 0px to 0px 5px, derive(-fx-control-inner-background, -9%), -fx-control-inner-background);
+    -fx-background-insets: 0, 0, 2;
+    -fx-background-radius: 2, 1, 0;
+}
+
+.keyword {
+    -fx-fill: darkorange !important;
+}
+
+.type {
+	-fx-fill: rgb(50, 120, 200) !important;
+}
+
+.function {
+	-fx-fill: rgb(100, 220, 120) !important;
+}
+
+.string {
+    -fx-fill: rgb(23, 198, 163) !important;
+}
+
+.comment {
+	-fx-fill: rgb(120, 120, 120) !important;
+}
+
+.preprocessor {
+	-fx-fill: rgb(250, 225, 20) !important;
+}
+
+.namespace {
+	-fx-fill: rgb(150, 100, 250) !important;
+}
+
+.number {
+	-fx-fill: rgb(50, 255, 255) !important;
+}
+
+.paragraph-box:has-caret {
+    -fx-background-color: rgb(60, 60, 60);
+}
+
+

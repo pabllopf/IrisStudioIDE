@@ -1,0 +1,35 @@
+.keyword {
+    -fx-fill: rgb(180, 40, 130) !important;
+}
+
+.type {
+	-fx-fill: rgb(50, 120, 200) !important;
+}
+
+.function {
+	-fx-fill: rgb(220, 140, 0) !important;
+}
+
+.string {
+    -fx-fill: rgb(0, 140, 0) !important;
+}
+
+.comment {
+	-fx-fill: rgb(180, 180, 180) !important;
+}
+
+.preprocessor {
+	-fx-fill: darkorange !important;
+}
+
+.namespace {
+	-fx-fill: rgb(150, 100, 250) !important;
+}
+
+.number {
+	-fx-fill: rgb(50, 200, 200) !important;
+}
+
+.paragraph-box:has-caret {
+    -fx-background-color: rgb(230, 230, 230);
+}
