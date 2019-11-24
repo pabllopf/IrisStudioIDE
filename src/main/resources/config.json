@@ -2,8 +2,7 @@
 	
 	"askWorkspacePath": true,
 
-	"workspacePath": null,
-	
+
 	"theme": "themes/dark_theme.css",
 
 	"layout": {

@@ -16,4 +16,13 @@ public class ErrorsView extends View {
 		setContent(errorList);
 	}
 
+	public void addError(String message) {
+		errorList.getItems().add(message);
+		setContent(errorList);
+	}
+
+	public void clean() {
+		errorList.getItems().clear();
+		setContent(errorList);
+	}
 }

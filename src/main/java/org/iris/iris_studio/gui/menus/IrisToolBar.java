@@ -41,8 +41,8 @@ public class IrisToolBar extends ToolBar {
 		
 		
 		compileFile = Buttons.create(Icons.get(Icons.ICON_COMPILE_FILE), false);
-		build = Buttons.create(Icons.get(Icons.ICON_BUILD), false);
-		run = Buttons.create(Icons.get(Icons.ICON_RUN), false);
+		build = Buttons.create(Icons.get(Icons.ICON_BUILD), false, MenuActions::build);
+		run = Buttons.create(Icons.get(Icons.ICON_RUN), false, MenuActions::run);
 		debug = Buttons.create(Icons.get(Icons.ICON_DEBUG), false);
 		
 		getItems().addAll(
@@ -52,5 +52,9 @@ public class IrisToolBar extends ToolBar {
 				cut, copy, paste, new Separator(),
 				compileFile, build, run, debug);
 	}
-	
+
+	public Button buttonBuild()
+	{
+		return this.build;
+	}
 }

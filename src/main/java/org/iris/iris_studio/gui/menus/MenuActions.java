@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Optional;
 
 import org.iris.iris_studio.IrisStudio;
+import org.iris.iris_studio.compiler.Compiler;
 import org.iris.iris_studio.gui.editor.FileViews;
 import org.iris.iris_studio.gui.projects.ProjectView;
 import org.iris.iris_studio.projects.Project;
@@ -113,9 +114,25 @@ public final class MenuActions {
 			view.getCodeArea().paste();
 		});
 	}
+
+	public static void build(Event event) {
+		Thread thread =  new Thread(() -> {
+			new Compiler().buildProject();
+		});
+		thread.start();
+	}
+
+	public static void run(Event event) {
+		Thread thread =  new Thread(() -> {
+			Compiler compiler = new Compiler();
+			if(compiler.buildProject()) {
+				compiler.run();
+			}
+		});
+		thread.start();
+	}
 	
 	public static void exit(Event event) {
-		// TODO: ask and include do not ask again checkbox
 		IrisStudio.exit();
 	}
 

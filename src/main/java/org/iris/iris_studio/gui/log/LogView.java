@@ -17,4 +17,8 @@ public class LogView extends View {
 		setContent(logArea);
 	}
 
+	public void UpdateLog(String message) {
+		logArea.appendText("\n" + message);
+	}
+
 }
