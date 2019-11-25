@@ -35,7 +35,9 @@ public class AutoCompletionPopup extends Popup {
     };
 
     private void completeText() {
-        String toBeInserted = autoCompletionListView.getSelectionModel().getSelectedItem().toString();
+        String toBeInserted = autoCompletionListView.getSelectionModel().getSelectedItem()
+                                                    .toString()
+                                                    .substring(AutoCompleter.getQuery(codeArea).length());
         
         codeArea.insertText(codeArea.getCaretPosition(), toBeInserted);
         hide();
