@@ -20,6 +20,7 @@ public class AutoCompletionPopup extends Popup {
     private final EventHandler<KeyEvent> onKeyPressed = event -> {
         switch(event.getCode()) {
             case ENTER:
+            case TAB:
                 completeText();
                 break;
             case UP:

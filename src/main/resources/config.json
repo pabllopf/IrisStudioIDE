@@ -1,6 +1,6 @@
 {
 	
-	"askWorkspacePath": true,
+	"askWorkspacePath": false,
 
 
 	"theme": "themes/dark_theme.css",

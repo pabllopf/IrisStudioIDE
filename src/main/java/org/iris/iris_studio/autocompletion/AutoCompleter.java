@@ -26,7 +26,13 @@ public class AutoCompleter {
     }
 
     public static String getQuery(CodeArea codeArea) {
-        String query = codeArea.getText().substring(codeArea.getCaretPosition() - MAX_LENGTH, codeArea.getCaretPosition());
+        String query;
+        if(codeArea.getCaretPosition() - MAX_LENGTH < 0) {
+            query = codeArea.getText().substring(0, codeArea.getCaretPosition());
+        } else {
+            query = codeArea.getText().substring(codeArea.getCaretPosition() - MAX_LENGTH, codeArea.getCaretPosition());
+        }
+
         query = query.replaceAll("\\p{Punct}", " ").trim();
         query = query.replaceAll("\\n", " ").trim();
 
