@@ -36,6 +36,12 @@ public class Compiler{
     }
 
     public boolean buildProject() {
+        if(findView(ProjectView.class).get().getSelected().orElse(null) == null)
+        {
+            UpdateLog("Build Failed [select a project to build]");
+            return false;
+        }
+
         nameProject = findView(ProjectView.class).get().getSelected().get().getProject().getName();
         exePath = getConfig().getWorkspacePath() + "\\" + nameProject + ".exe";
         directoryToCompilePath = getConfig().getWorkspacePath() + "\\" + nameProject;
@@ -61,7 +67,8 @@ public class Compiler{
 
     private boolean compile(String exePath, String directoryToCompile) {
         StringBuilder sb = new StringBuilder();
-        sb.append("g++");
+
+        sb.append(new File(getClass().getClassLoader().getResource("MinGW/bin/g++.exe").getFile()).getAbsolutePath());
         sb.append(" -I" + directoryToCompile + "\\include");
         sb.append(" -o" + exePath);
 
@@ -95,9 +102,8 @@ public class Compiler{
         findView(ErrorsView.class).get().clean();
 
         try {
-            Process p = Runtime.getRuntime().exec(command);
-
-            BufferedReader is = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+            Process process = Runtime.getRuntime().exec(command);
+            BufferedReader is = new BufferedReader(new InputStreamReader(process.getErrorStream()));
             while ((line = is.readLine()) != null){
                 findView(ErrorsView.class).get().addError(line);
                 counterError++;

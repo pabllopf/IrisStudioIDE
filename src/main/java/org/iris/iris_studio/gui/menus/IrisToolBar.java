@@ -53,6 +53,7 @@ public class IrisToolBar extends ToolBar {
 				compileFile, build, run, debug);
 	}
 
+
 	public Button buttonBuild()
 	{
 		return this.build;

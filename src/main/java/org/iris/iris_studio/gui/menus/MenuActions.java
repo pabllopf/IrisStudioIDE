@@ -1,17 +1,24 @@
 package org.iris.iris_studio.gui.menus;
 
+import java.awt.*;
 import java.io.File;
 import java.util.Optional;
 
+import javafx.scene.Node;
 import org.iris.iris_studio.IrisStudio;
 import org.iris.iris_studio.compiler.Compiler;
 import org.iris.iris_studio.gui.editor.FileViews;
+import org.iris.iris_studio.gui.log.LogView;
 import org.iris.iris_studio.gui.projects.ProjectView;
 import org.iris.iris_studio.projects.Project;
 import org.iris.iris_studio.projects.ProjectFile;
+import javafx.concurrent.Task;
 
 import javafx.event.Event;
 import javafx.stage.DirectoryChooser;
+
+import static org.iris.iris_studio.IrisStudio.findView;
+import static org.iris.iris_studio.IrisStudio.getToolsPane;
 
 public final class MenuActions {
 
@@ -116,18 +123,49 @@ public final class MenuActions {
 	}
 
 	public static void build(Event event) {
-		Thread thread =  new Thread(() -> {
-			new Compiler().buildProject();
+		FileViews.getAll().forEach(view -> view.save());
+
+		final Node build = getToolsPane().getToolBar().getItems().get(14);
+		final Node run = getToolsPane().getToolBar().getItems().get(15);
+		final Compiler compiler = new Compiler();
+		final LogView logView = findView(LogView.class).get();
+		Thread thread = new Thread(() -> {
+			long startTime = System.currentTimeMillis();
+			build.setDisable(true);
+			run.setDisable(true);
+
+			compiler.buildProject();
+
+			build.setDisable(false);
+			run.setDisable(false);
+			long endTime = System.currentTimeMillis();
+			logView.AppendToLog(" in " + (endTime - startTime) + "ms");
+			return;
 		});
 		thread.start();
 	}
 
 	public static void run(Event event) {
-		Thread thread =  new Thread(() -> {
-			Compiler compiler = new Compiler();
+		FileViews.getAll().forEach(view -> view.save());
+
+		final Node build = getToolsPane().getToolBar().getItems().get(14);
+		final Node run = getToolsPane().getToolBar().getItems().get(15);
+		final Compiler compiler = new Compiler();
+		final LogView logView = findView(LogView.class).get();
+		Thread thread = new Thread(() -> {
+			long startTime = System.currentTimeMillis();
+			build.setDisable(true);
+			run.setDisable(true);
+
 			if(compiler.buildProject()) {
 				compiler.run();
 			}
+
+			build.setDisable(false);
+			run.setDisable(false);
+			long endTime = System.currentTimeMillis();
+			logView.AppendToLog(" in " + (endTime - startTime) + "ms");
+			return;
 		});
 		thread.start();
 	}

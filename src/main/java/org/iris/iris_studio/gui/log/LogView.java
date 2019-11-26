@@ -21,4 +21,8 @@ public class LogView extends View {
 		logArea.appendText("\n" + message);
 	}
 
+    public void AppendToLog(String message) {
+        logArea.appendText(message);
+    }
+
 }
