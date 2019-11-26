@@ -92,14 +92,13 @@ public class FileView extends View {
 	private boolean ignoreTextChanges;
 
 	private final EventHandler<KeyEvent> onKeyReleased = event -> {
-		int position = codeArea.getCaretPosition();
 		if (autoCompletePopup == null) {
 			autoCompletePopup = AutoCompletionPopup.get(codeArea);
 		} else {
 			autoCompletePopup.hide();
 		}
 
-		if(event.getCode() == KeyCode.ENTER) {
+		if(event.getCode() == KeyCode.ENTER && !event.isConsumed()) {
 			AutoIndentator.indentate(codeArea);
 		}
 

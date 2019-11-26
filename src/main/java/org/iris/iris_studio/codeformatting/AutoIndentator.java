@@ -1,11 +1,16 @@
 package org.iris.iris_studio.codeformatting;
 
 import org.fxmisc.richtext.CodeArea;
+import org.iris.iris_studio.gui.editor.autocompletion.AutoCompletionPopup;
 
 public class AutoIndentator {
     private static final int MAX_LENGTH = 200;
     public static void indentate(CodeArea codeArea) {
-        codeArea.insertText(codeArea.getCaretPosition(), " ".repeat(numberOfSpaces(codeArea)));
+        if(!AutoCompletionPopup.get(codeArea).getJustAutocompleted()) {
+            codeArea.insertText(codeArea.getCaretPosition(), " ".repeat(numberOfSpaces(codeArea)));
+        } else {
+            AutoCompletionPopup.get(codeArea).setJustAutocompleted(false);
+        }
     }
 
     private static int numberOfSpaces(CodeArea codeArea) {

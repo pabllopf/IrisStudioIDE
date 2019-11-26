@@ -15,6 +15,7 @@ import java.util.Set;
 public class AutoCompletionPopup extends Popup {
     private ListView autoCompletionListView;
     private CodeArea codeArea;
+    public boolean justAutocompleted = false;
     private static AutoCompletionPopup instance;
 
     private final EventHandler<KeyEvent> onKeyPressed = event -> {
@@ -41,7 +42,12 @@ public class AutoCompletionPopup extends Popup {
                                                     .substring(AutoCompleter.getQuery(codeArea).length());
         
         codeArea.insertText(codeArea.getCaretPosition(), toBeInserted);
+        justAutocompleted = true;
         hide();
+    }
+
+    public void setJustAutocompleted(boolean justAutocompleted) {
+        this.justAutocompleted = justAutocompleted;
     }
 
     private AutoCompletionPopup(CodeArea codeArea) {
@@ -95,5 +101,9 @@ public class AutoCompletionPopup extends Popup {
         autoCompletionListView.setPrefHeight(24 * size() + 2);
         fill();
         super.show(node, x, y);
+    }
+
+    public boolean getJustAutocompleted() {
+        return justAutocompleted;
     }
 }
