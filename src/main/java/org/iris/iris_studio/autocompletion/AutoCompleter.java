@@ -43,16 +43,26 @@ public class AutoCompleter {
 
     public static void insertFori(CodeArea codeArea) {
         StringBuilder foriText = new StringBuilder();
-        String indentation = " ".repeat(AutoIndenter.numberOfSpaces(codeArea));
+        int nrOfSpaces = AutoIndenter.numberOfSpaces(codeArea);
+        String indentation = " ".repeat(nrOfSpaces);
 
-        foriText.append("for (int i = 0; i < ; i++)\n");
+        foriText.append(indentation).append("for (int i = 0; i < ; i++)\n");
         foriText.append(indentation).append("{\n");
         foriText.append(indentation).append("\n");
         foriText.append(indentation).append("}");
 
         int caretPos = codeArea.getCaretPosition();
 
-        codeArea.replaceText(codeArea.getCaretPosition() - 8, codeArea.getCaretPosition(), foriText.toString());
-        codeArea.displaceCaret(caretPos + 12);
+        codeArea.replaceText(codeArea.getCaretPosition() - 8 - nrOfSpaces, codeArea.getCaretPosition(), foriText.toString());
+        codeArea.moveTo(caretPos + 12);
+    }
+
+    public static void insertCout(CodeArea codeArea) {
+        String coutText = " ".repeat(AutoIndenter.numberOfSpaces(codeArea)) + "std::cout << \"\" << std::endl;";
+
+        int caretPos = codeArea.getCaretPosition();
+
+        codeArea.replaceText(codeArea.getCaretPosition() - 8 - AutoIndenter.numberOfSpaces(codeArea), codeArea.getCaretPosition(), coutText);
+        codeArea.moveTo(caretPos + 6);
     }
 }

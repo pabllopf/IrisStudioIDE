@@ -103,9 +103,13 @@ public class FileView extends View {
 			AutoIndenter.indent(codeArea);
 		}
 
-		if(event.getCode() == KeyCode.TAB && AutoCompleter.getQuery(codeArea).equals("fori")) {
-			AutoCompleter.insertFori(codeArea);
+		if(event.getCode() == KeyCode.TAB) {
+			if(AutoCompleter.getQuery(codeArea).equals("fori"))
+				AutoCompleter.insertFori(codeArea);
+			if(AutoCompleter.getQuery(codeArea).equals("cout"))
+				AutoCompleter.insertCout(codeArea);
 		}
+
 
 		if (event.getCode().isLetterKey()) {
 			autoCompletePopup.refresh();
