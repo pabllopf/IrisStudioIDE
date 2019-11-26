@@ -10,13 +10,20 @@ import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import org.fxmisc.flowless.VirtualizedScrollPane;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
 import org.iris.iris_studio.IrisStudio;
+import org.iris.iris_studio.autocompletion.AutoCompleter;
+import org.iris.iris_studio.codeformatting.AutoIndenter;
 import org.iris.iris_studio.gui.Multiple;
 import org.iris.iris_studio.gui.View;
+import org.iris.iris_studio.gui.editor.autocompletion.AutoCompletionPopup;
 import org.iris.iris_studio.gui.util.Icons;
 import org.iris.iris_studio.gui.util.Theme;
 import org.iris.iris_studio.projects.ProjectFile;
@@ -33,7 +40,6 @@ import javafx.scene.image.ImageView;
 
 @Multiple
 public class FileView extends View {
-	
 
 	private static final String[] KEYWORDS = new String[] {
 			"namespace", "assert", "boolean", "break",
@@ -76,23 +82,54 @@ public class FileView extends View {
 					+ "|(?<NAMESPACE>" + NAMESPACE_PATTERN + ")"
 					+ "|(?<NUMBER>" + NUMBER_PATTERN + ")"
 			);
-	
+
 	private static final String TAB = "    ";
 	
-	private final CodeArea codeArea;
+	private final CodeArea codeArea = new CodeArea();
 	private final ProjectFile file;
 	private final ExecutorService codeInspector;
+	private AutoCompletionPopup autoCompletePopup;
 	private boolean modified;
 	private boolean ignoreTextChanges;
-	
+
+	private final EventHandler<KeyEvent> onKeyReleased = event -> {
+		if (autoCompletePopup == null) {
+			autoCompletePopup = AutoCompletionPopup.get(codeArea);
+		} else {
+			autoCompletePopup.hide();
+		}
+        switch(event.getCode()) {
+            case ENTER:
+                AutoIndenter.indent(codeArea);
+                break;
+            case TAB:
+                switch(AutoCompleter.getQuery(codeArea)) {
+                    case "fori":
+                        AutoCompleter.insertFori(codeArea);
+                        break;
+                    case "cout":
+                        AutoCompleter.insertCout(codeArea);
+                }
+        }
+
+		if (event.getCode().isLetterKey()) {
+			autoCompletePopup.refresh();
+			if (autoCompletePopup.size() != 0) {
+				Bounds pointer = codeArea.caretBoundsProperty().getValue().get();
+				autoCompletePopup.show(codeArea, pointer.getMaxX(), pointer.getMinY());
+			}
+		} else {
+			autoCompletePopup.hide();
+		}
+	};
+
 	FileView(ProjectFile file) {
 		super(file.getName());
-		
-		codeArea = new CodeArea();
+
 		codeArea.setId("codearea");
-		
+		codeArea.setOnKeyReleased(onKeyReleased);
 		FileViews.applyFont(this);
-		
+
 		this.file = file;
 		setGraphic();
 						
@@ -105,7 +142,6 @@ public class FileView extends View {
 		setSyntaxColoring();
 		
 		setContentsOf(file);
-		
 		codeArea.textProperty().addListener(this::onTextChanged);
 		
 		setTooltip(new Tooltip(file.getPath().toString()));
@@ -291,7 +327,7 @@ public class FileView extends View {
 	private void onTextReplaced(int caretPos, String oldText, String newText) {
 		
 	}
-	
+
 	private void setSyntaxColoring() {
 		codeArea.multiPlainChanges()
         .successionEnds(Duration.ofMillis(500))
