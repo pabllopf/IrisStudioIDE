@@ -98,18 +98,19 @@ public class FileView extends View {
 		} else {
 			autoCompletePopup.hide();
 		}
-
-		if(event.getCode() == KeyCode.ENTER && !event.isConsumed()) {
-			AutoIndenter.indent(codeArea);
-		}
-
-		if(event.getCode() == KeyCode.TAB) {
-			if(AutoCompleter.getQuery(codeArea).equals("fori"))
-				AutoCompleter.insertFori(codeArea);
-			if(AutoCompleter.getQuery(codeArea).equals("cout"))
-				AutoCompleter.insertCout(codeArea);
-		}
-
+        switch(event.getCode()) {
+            case ENTER:
+                AutoIndenter.indent(codeArea);
+                break;
+            case TAB:
+                switch(AutoCompleter.getQuery(codeArea)) {
+                    case "fori":
+                        AutoCompleter.insertFori(codeArea);
+                        break;
+                    case "cout":
+                        AutoCompleter.insertCout(codeArea);
+                }
+        }
 
 		if (event.getCode().isLetterKey()) {
 			autoCompletePopup.refresh();

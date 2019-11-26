@@ -1,5 +1,6 @@
 package org.iris.iris_studio.codeformatting;
 
+import org.fxmisc.richtext.Caret;
 import org.fxmisc.richtext.CodeArea;
 import org.iris.iris_studio.gui.editor.autocompletion.AutoCompletionPopup;
 
