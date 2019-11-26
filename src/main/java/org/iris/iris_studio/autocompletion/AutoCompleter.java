@@ -1,6 +1,7 @@
 package org.iris.iris_studio.autocompletion;
 
 import org.fxmisc.richtext.CodeArea;
+import org.iris.iris_studio.codeformatting.AutoIndenter;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -38,5 +39,20 @@ public class AutoCompleter {
 
         int last = query.lastIndexOf(" ");
         return query.substring(last + 1);
+    }
+
+    public static void insertFori(CodeArea codeArea) {
+        StringBuilder foriText = new StringBuilder();
+        String indentation = " ".repeat(AutoIndenter.numberOfSpaces(codeArea));
+
+        foriText.append("for (int i = 0; i < ; i++)\n");
+        foriText.append(indentation).append("{\n");
+        foriText.append(indentation).append("\n");
+        foriText.append(indentation).append("}");
+
+        int caretPos = codeArea.getCaretPosition();
+
+        codeArea.replaceText(codeArea.getCaretPosition() - 8, codeArea.getCaretPosition(), foriText.toString());
+        codeArea.displaceCaret(caretPos + 12);
     }
 }

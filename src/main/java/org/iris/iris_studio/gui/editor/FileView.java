@@ -19,7 +19,8 @@ import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
 import org.iris.iris_studio.IrisStudio;
-import org.iris.iris_studio.codeformatting.AutoIndentator;
+import org.iris.iris_studio.autocompletion.AutoCompleter;
+import org.iris.iris_studio.codeformatting.AutoIndenter;
 import org.iris.iris_studio.gui.Multiple;
 import org.iris.iris_studio.gui.View;
 import org.iris.iris_studio.gui.editor.autocompletion.AutoCompletionPopup;
@@ -99,7 +100,11 @@ public class FileView extends View {
 		}
 
 		if(event.getCode() == KeyCode.ENTER && !event.isConsumed()) {
-			AutoIndentator.indentate(codeArea);
+			AutoIndenter.indent(codeArea);
+		}
+
+		if(event.getCode() == KeyCode.TAB && AutoCompleter.getQuery(codeArea).equals("fori")) {
+			AutoCompleter.insertFori(codeArea);
 		}
 
 		if (event.getCode().isLetterKey()) {

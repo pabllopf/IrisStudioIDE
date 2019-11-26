@@ -3,9 +3,9 @@ package org.iris.iris_studio.codeformatting;
 import org.fxmisc.richtext.CodeArea;
 import org.iris.iris_studio.gui.editor.autocompletion.AutoCompletionPopup;
 
-public class AutoIndentator {
+public class AutoIndenter {
     private static final int MAX_LENGTH = 200;
-    public static void indentate(CodeArea codeArea) {
+    public static void indent(CodeArea codeArea) {
         if(!AutoCompletionPopup.get(codeArea).getJustAutocompleted()) {
             codeArea.insertText(codeArea.getCaretPosition(), " ".repeat(numberOfSpaces(codeArea)));
         } else {
@@ -13,7 +13,7 @@ public class AutoIndentator {
         }
     }
 
-    private static int numberOfSpaces(CodeArea codeArea) {
+    public static int numberOfSpaces(CodeArea codeArea) {
         int caretPos = codeArea.getCaretPosition();
 
         String temp;
