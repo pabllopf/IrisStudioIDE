@@ -11,7 +11,7 @@ public class BottomPane extends HBox {
 	private final MemoryInfo memoryInfo;
 	
 	public BottomPane() {
-		setSpacing(1200);
+		setSpacing(720);
 		
 		workspaceLabel = new Label("Workspace: " + IrisStudio.getWorkspace().getFileSystem().getRoot().toString());
 		memoryInfo = new MemoryInfo();
