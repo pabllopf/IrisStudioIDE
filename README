@@ -1,2 +1,2 @@
 Para poder compilar los proyectos realizados en el IDE IrisStudio, se debe descargar el compilador g++ (MinGW) y se debe situar 
-en la carpeta root del proyecto de este modo: IrisStudioIDE\MinGW\bin\g++.exe.
+en la carpeta resources del proyecto de este modo: IrisStudioIDE\src\main\resources\MinGW\bin\g++.exe.
