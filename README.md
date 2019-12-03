@@ -29,7 +29,7 @@ We use [Git](https://git-scm.com/) for versioning.
 
 * **Cristian Herrera** - [Naitsirc98](https://github.com/Naitsirc98)
 * **Omar Kaempfer** - [OmarKaempfer](https://github.com/OmarKaempfer)
-* **Raul Lozano ** - [RaulLozanoPonce](https://github.com/RaulLozanoPonce)
-* **Pablo Perdomo ** - [Pabllopf](https://gist.github.com/pabllopf)
+* **Raul Lozano** - [RaulLozanoPonce](https://github.com/RaulLozanoPonce)
+* **Pablo Perdomo** - [Pabllopf](https://gist.github.com/pabllopf)
 
 See also the list of [contributors](https://github.com/pabllopf/IrisStudioIDE/graphs/contributors) who participated in this project.
